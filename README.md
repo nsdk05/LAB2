@@ -360,23 +360,16 @@ void InsertNumbersInDeq(std::deque<int>& deq, int count) {
 int Sign(int x) {
     return (x > 0) - (x < 0);
 }
-```
 
 // Задание 7.13 сортировка вектора по третям
-
-`void` `SortVectorBySign`(`std::vector<int>`& v) {
-
-`const` `std::size_t` `third` = `v.size()` / 3;
-
-`auto` `by_sign` = [](`int` a, `int` b) { `return` `Sign(a)` < `Sign(b)`; };
-
-`std::inplace_merge`(`v.begin()`, `v.begin()` + `third`, `v.begin()` + 2 * `third`,
-
-`by_sign`);
-
-`std::inplace_merge`(`v.begin()`, `v.begin()` + 2 * `third`, `v.end()`, `by_sign`);
-
+void SortVectorBySign(std::vector<int>& v) {
+    const std::size_t third = v.size() / 3;
+    auto by_sign = [](int a, int b) { return Sign(a) < Sign(b); };
+    std::inplace_merge(v.begin(), v.begin() + third, v.begin() + 2 * third,
+                                         by_sign);
+    std::inplace_merge(v.begin(), v.begin() + 2 * third, v.end(), by_sign);
 }
+```
 
 ##### Тестирование
 
@@ -534,21 +527,15 @@ std::multimap<int, int> GroupByLastDigit(const std::vector<int>& vec) {
     }
     return groups;
 }
-```
 
 // Вывод мультиотображения ключ затем значение
-
-`void` `PrintMultimap`(`const` `std::multimap`<`int`, `int`>& `groups`) {
-
-`for` (`std::multimap`<`int`, `int`>::`const_iterator` it = `groups.begin()`;
-
-it != `groups.end()`; ++it) {
-
-`std::cout` << it->`first` << ' ' << it->`second` << "\n";
-
+void PrintMultimap(const std::multimap<int, int>& groups) {
+    for (std::multimap<int, int>::const_iterator it = groups.begin();
+             it != groups.end(); ++it) {
+        std::cout << it->first << ' ' << it->second << "\n";
+    }
 }
-
-}
+```
 
 ##### Тестирование
 
